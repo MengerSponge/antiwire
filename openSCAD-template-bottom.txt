@@ -1,0 +1,15 @@
+];
+// construct tubular polyhedron following curve of datapoints
+path =
+    [ for (i=[start:step:end])
+       scale * points[i] ];
+path_transforms =
+    construct_transform_path(path);
+
+difference() {
+        cube([80,80,20], center=true);
+        cube([76,80,16], center=true);
+        //cylinder(d=80, h=.8, center=false);
+        // The '#' operator highlights the object
+        #sweep(shape(), path_transforms,false);
+    }

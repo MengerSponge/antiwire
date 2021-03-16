@@ -1,0 +1,18 @@
+// Make a 3d-printable file using OpenSCAD and comsol-determined wire paths
+// ARR 2021.03.15
+// template adapted from Lucas et al https://doi.org/10.1090/noti2187
+// input files
+use <list-comprehension/sweep.scad>
+use <scad-utils/shapes.scad>
+// choose start and end datapoints
+step = 1;
+start = 0;
+end = 399;
+// style and size parameters
+radius = 0.5;
+sides = 16;
+function shape() =
+circle(radius, $fn=sides);
+// overall scale applied before the tubular polyhedron is constructed
+scale = 1;
+points = [
