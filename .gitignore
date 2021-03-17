@@ -123,3 +123,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+## Matlab files:
+.asv
+.mat
+
+## COMSOL files:
+.mph
