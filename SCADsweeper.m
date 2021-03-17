@@ -31,7 +31,7 @@ end
 
 fprintf(fscad,'union(){\n');
 for i=1:wirecount
-    fprintf(fscad,'sweep(shape%i (), path_transforms,false);\n', i);
+    fprintf(fscad,'sweep(shape (), construct_transform_path(path%i),false);\n', i);
 end
 fprintf(fscad,'};\n');
 fclose(fscad);
@@ -46,6 +46,5 @@ end
 fprintf(filehandle,'[%f,%f,%f]\n];\n',contourdata(:,n));
 
 fprintf(filehandle,['path' strindex ' = [ for (i=[0:1:' num2str(n,'%i') ']) points' strindex '[i]];\n']);
-fprintf(filehandle,['path_transforms' strindex ' = construct_transform_path(path' strindex ');\n']);
 
 end
