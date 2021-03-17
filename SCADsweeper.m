@@ -29,11 +29,11 @@ for i=1:faces
     end
 end
 
-fprintf(fscad,'union(){\n');
+fprintf(fscad,'module coil() = {\n union(){\n');
 for i=1:wirecount
-    fprintf(fscad,'sweep(shape (), construct_transform_path(path%i),false);\n', i);
+    fprintf(fscad,'sweep(shape (), construct_transform_path([ for (pt=path%i) pt]),false);\n', i);
 end
-fprintf(fscad,'};\n');
+fprintf(fscad,'};\n};\n');
 fclose(fscad);
 
 function stream(contourdata,filehandle,index)
@@ -45,6 +45,5 @@ for i=1:(n-1)
 end
 fprintf(filehandle,'[%f,%f,%f]\n];\n',contourdata(:,n));
 
-fprintf(filehandle,['path' strindex ' = [ for (i=[0:1:' num2str(n,'%i') ']) points' strindex '[i]];\n']);
 
 end
