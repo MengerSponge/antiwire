@@ -6,7 +6,7 @@ function stackcylinders(model, facedata, wire_r, newsel)
 
 geo = model.component('comp1').geom('geom1');
 
-cylindercounter = 0;
+cylN = 0;
 
 faces = length(facedata);
 
@@ -23,7 +23,7 @@ for i = 1:faces
         isowires = length(facedata{i}{5}{j});
         for k = 1:isowires
             contourdata = affineRestore(facedata{i}{5}{j}{k}(1,:),facedata{i}{5}{j}{k}(2,:),M);
-            cylN = insertCylinders(model,contourdata, cylN, grouping, wire_r);
+            cylN = insertCylinders(model,contourdata, cylN, csel, wire_r);
         end
     end
 end
@@ -31,7 +31,7 @@ geo.run;
 geo.run('fin');
 end
 function cylN = insertCylinders(model,contourdata, cylN, grouping, wire_r)
-    geo = model.model.component('comp1').geom('geom1');
+    geo = model.component('comp1').geom('geom1');
     [~,n] = size(contourdata);
     diffdata = diff(contourdata,[],2);
     cylinderh = sqrt(sum(diffdata.*diffdata));
@@ -40,9 +40,9 @@ function cylN = insertCylinders(model,contourdata, cylN, grouping, wire_r)
         cylstring = ['cyl' num2str(cylN)];
         geo.create(cylstring, 'Cylinder');
         geo.feature(cylstring).set('contributeto', grouping);
-        geo.feature(cylstring).set('pos', contourdata(:,i)');
-        geo.feature(cylstring).set('axis', diffdata(:,i)');
+        geo.feature(cylstring).set('pos', contourdata(:,pti)');
+        geo.feature(cylstring).set('axis', diffdata(:,pti)');
         geo.feature(cylstring).set('r', wire_r);
-        geo.feature(cylstring).set('h', cylinderh(i));
+        geo.feature(cylstring).set('h', cylinderh(pti));
     end
 end
