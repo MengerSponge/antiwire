@@ -126,7 +126,8 @@ dmypy.json
 
 ## Matlab files:
 *.asv
-*.mat
 
 ## COMSOL files:
 *.mph
+
+!/unignore/*.*
